@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from "mongoose";
+import mongoose, { Document, Model} from "mongoose";
 
 // Define the interface for the Project document
 interface IProject extends Document {

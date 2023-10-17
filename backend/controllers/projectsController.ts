@@ -25,6 +25,22 @@ export const getProjectById = async (req: Request, res: Response) => {
   }
 };
 
+export const getProjectByTitle = async (req: Request, res: Response) => {
+    try {
+      const project_title = req.params.title;
+      const project = await ProjectModel.findOne({ project_title: project_title });
+  
+      if (project) {
+        res.status(200).json(project);
+      } else {
+        res.status(404).json({ error: "Project not found" });
+      }
+    } catch (err) {
+      res.status(500).json({ error: "Internal server error" });
+      console.log(err);
+    }
+  };
+  
 // // Create a new project
 // export const createProject = async (req: Request, res: Response) => {
 //     try {

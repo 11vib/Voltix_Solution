@@ -30,12 +30,13 @@ const dotenv = __importStar(require("dotenv"));
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const projectsRoutes_1 = __importDefault(require("./routes/projectsRoutes"));
+const servicesRoutes_1 = __importDefault(require("./routes/servicesRoutes"));
 // require('dotenv').config();
 dotenv.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 app.use(express_1.default.json());
-const mongoURI = process.env.MONGO || "mongodb+srv://vibha:vibha@cluster0.ufb9ob8.mongodb.net/Intern23";
+const mongoURI = process.env.MONGO;
 // Connect to MongoDB
 mongoose_1.default.connect(mongoURI).then(() => {
     console.log("Connected to MongoDB");
@@ -43,7 +44,9 @@ mongoose_1.default.connect(mongoURI).then(() => {
     console.error("MongoDB connection error:", err);
 });
 // Use projectRoutes
-app.use("/api", projectsRoutes_1.default);
+app.use("/papi", projectsRoutes_1.default);
+// Use serviceRoutes
+app.use("/sapi", servicesRoutes_1.default);
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

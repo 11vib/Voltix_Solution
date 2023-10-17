@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProjectById = exports.getAllProjects = void 0;
+exports.getProjectByTitle = exports.getProjectById = exports.getAllProjects = void 0;
 const projectsModel_1 = __importDefault(require("../models/projectsModel"));
 const getAllProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -40,6 +40,23 @@ const getProjectById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getProjectById = getProjectById;
+const getProjectByTitle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const project_title = req.params.title;
+        const project = yield projectsModel_1.default.findOne({ project_title: project_title });
+        if (project) {
+            res.status(200).json(project);
+        }
+        else {
+            res.status(404).json({ error: "Project not found" });
+        }
+    }
+    catch (err) {
+        res.status(500).json({ error: "Internal server error" });
+        console.log(err);
+    }
+});
+exports.getProjectByTitle = getProjectByTitle;
 // // Create a new project
 // export const createProject = async (req: Request, res: Response) => {
 //     try {

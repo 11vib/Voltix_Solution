@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 // Create the Mongoose schema for the Project model
 const projectsSchema = new mongoose_1.default.Schema({
-    ProjectId: { type: String, required: true, unique: true, trim: true },
-    ProjectTitle: { type: String, required: true, unique: true, trim: true },
-    ProjectDescription: { type: String, required: true },
-    ProjectCategory: { type: String, required: true },
-    imageURL: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
+    project_id: { type: String, required: true, unique: true, trim: true },
+    project_title: { type: String, required: true, unique: true, trim: true },
+    project_description: { type: String, required: true },
+    project_category: { type: String, required: true },
+    image_url: { type: String, required: true },
+    created_at: { type: Date, default: Date.now },
 });
 // Create and export the Project model
 const ProjectModel = mongoose_1.default.model("Projects", projectsSchema);

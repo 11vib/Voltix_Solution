@@ -27,9 +27,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const projectController = __importStar(require("../controllers/projectsController"));
-const prouter = express_1.default.Router();
-prouter.get("/projects/:id", projectController.getProjectById);
-prouter.get("/projects", projectController.getAllProjects);
-prouter.get("/projects/title/:title", projectController.getProjectByTitle);
-exports.default = prouter;
+const serviceController = __importStar(require("../controllers/servicesController"));
+const srouter = express_1.default.Router();
+srouter.get("/services/:id", serviceController.getServiceById);
+srouter.get("/services", serviceController.getAllServices);
+srouter.get("/services/title/:title", serviceController.getServiceByTitle);
+exports.default = srouter;

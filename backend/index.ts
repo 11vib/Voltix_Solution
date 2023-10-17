@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import projectRoutes from "./routes/projectsRoutes";
 import serviceRoutes from "./routes/servicesRoutes";
+import testimonialRoutes from "./routes/testimonialRoutes";
 // require('dotenv').config();
 dotenv.config();
 const app = express();
@@ -17,10 +18,10 @@ mongoose.connect(mongoURI as string).then(() => {
   console.error("MongoDB connection error:", err);
 });
 
-// Use projectRoutes
+// Use Routes
 app.use("/papi", projectRoutes);
-// Use serviceRoutes
 app.use("/sapi",serviceRoutes);
+app.use("/tapi",testimonialRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

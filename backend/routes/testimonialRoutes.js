@@ -26,28 +26,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv = __importStar(require("dotenv"));
 const express_1 = __importDefault(require("express"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const projectsRoutes_1 = __importDefault(require("./routes/projectsRoutes"));
-const servicesRoutes_1 = __importDefault(require("./routes/servicesRoutes"));
-const testimonialRoutes_1 = __importDefault(require("./routes/testimonialRoutes"));
-// require('dotenv').config();
-dotenv.config();
-const app = (0, express_1.default)();
-const port = process.env.PORT;
-app.use(express_1.default.json());
-const mongoURI = process.env.MONGO;
-// Connect to MongoDB
-mongoose_1.default.connect(mongoURI).then(() => {
-    console.log("Connected to MongoDB");
-}).catch((err) => {
-    console.error("MongoDB connection error:", err);
-});
-// Use Routes
-app.use("/papi", projectsRoutes_1.default);
-app.use("/sapi", servicesRoutes_1.default);
-app.use("/tapi", testimonialRoutes_1.default);
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+const testimonialController = __importStar(require("../controllers/testimonialsController"));
+const trouter = express_1.default.Router();
+trouter.get("/testimonials", testimonialController.getAllTestimonials);
+exports.default = trouter;

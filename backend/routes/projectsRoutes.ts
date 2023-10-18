@@ -7,5 +7,5 @@ prouter.get("/projects", projectController.getAllProjects);
 prouter.get("/projects/title/:title",projectController.getProjectByTitle);
 
 
-export default prouter;
 
+export default prouter;

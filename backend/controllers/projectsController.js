@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProjectByTitle = exports.getProjectById = exports.getAllProjects = void 0;
+exports.deleteProject = exports.updateProject = exports.createProject = exports.getProjectByTitle = exports.getProjectById = exports.getAllProjects = void 0;
 const projectsModel_1 = __importDefault(require("../models/projectsModel"));
 const getAllProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -57,42 +57,52 @@ const getProjectByTitle = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getProjectByTitle = getProjectByTitle;
-// // Create a new project
-// export const createProject = async (req: Request, res: Response) => {
-//     try {
-//       const projectData = req.body;
-//       const createdProject = await ProjectModel.create(projectData);
-//       res.status(201).json(createdProject);
-//     } catch (err) {
-//       res.status(500).json({ error: "Internal server error" });
-//     }
-//   };
-//   // Update an existing project
-//   export const updateProject = async (req: Request, res: Response) => {
-//     try {
-//       const projectId = req.params.id;
-//       const projectData = req.body;
-//       const updatedProject = await ProjectModel.findByIdAndUpdate(projectId, projectData, { new: true });
-//       if (updatedProject) {
-//         res.status(200).json(updatedProject);
-//       } else {
-//         res.status(404).json({ error: "Project not found" });
-//       }
-//     } catch (err) {
-//       res.status(500).json({ error: "Internal server error" });
-//     }
-//   };
-//   // Delete a project
-//   export const deleteProject = async (req: Request, res: Response) => {
-//     try {
-//       const projectId = req.params.id;
-//       const deletedProject = await ProjectModel.findByIdAndDelete(projectId);
-//       if (deletedProject) {
-//         res.status(204).send(); // 204 No Content (successful deletion)
-//       } else {
-//         res.status(404).json({ error: "Project not found" });
-//       }
-//     } catch (err) {
-//       res.status(500).json({ error: "Internal server error" });
-//     }
-//   };
+// Create a new project
+const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const projectData = req.body;
+        const createdProject = yield projectsModel_1.default.create(projectData);
+        res.status(201).json(createdProject);
+    }
+    catch (err) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+exports.createProject = createProject;
+// Update an existing project
+const updateProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const projectId = req.params.id;
+        const projectData = req.body;
+        const updatedProject = yield projectsModel_1.default.findByIdAndUpdate(projectId, projectData, { new: true });
+        if (updatedProject) {
+            res.status(200).json(updatedProject);
+        }
+        else {
+            res.status(404).json({ error: "Project not found" });
+        }
+    }
+    catch (err) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+exports.updateProject = updateProject;
+// Delete a project
+const deleteProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const projectId = req.params.id;
+        const deletedProject = yield projectsModel_1.default.findByIdAndDelete(projectId);
+        if (deletedProject) {
+            res.status(204).send(); // 204 No Content (successful deletion)
+        }
+        else {
+            res.status(404).json({ error: "Project not found" });
+        }
+    }
+    catch (err) {
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+exports.deleteProject = deleteProject;
+// "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJmNWNjN2FkMjI1YzBiYzdlMWMyNDgiLCJpYXQiOjE2OTc2MDI3ODIsImV4cCI6MTY5NzYwMzY4Mn0.r0ks07-Vj9Qkp0C0gx6ofn2VlN9HTKZSRUOFy5PCbNs",
+//   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJmNWNjN2FkMjI1YzBiYzdlMWMyNDgiLCJpYXQiOjE2OTc2MDI3ODIsImV4cCI6MTY5ODIwNzU4Mn0.OvwPabyLbG_Daxg1L2RT76jqi1paY0NhAens6O9wwLM"

@@ -44,22 +44,18 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const secretKey = process.env.ACCESS_TOKEN_SECRET;
 const refreshSecretKey = process.env.REFRESH_TOKEN_SECRET;
-// Function to generate an access token
 const generateAccessToken = (userId) => {
-    return jsonwebtoken_1.default.sign({ userId }, secretKey, { expiresIn: '15m' }); // Adjust the expiration as needed
+    return jsonwebtoken_1.default.sign({ userId }, secretKey, { expiresIn: '50m' });
 };
-// Function to generate a refresh token
 const generateRefreshToken = (userId) => {
-    return jsonwebtoken_1.default.sign({ userId }, refreshSecretKey, { expiresIn: '7d' }); // Adjust the expiration as needed
+    return jsonwebtoken_1.default.sign({ userId }, refreshSecretKey, { expiresIn: '7d' });
 };
-// Middleware to validate username and password
 exports.validateUserInput = [
     (0, express_validator_1.check)('username').notEmpty().isString(),
     (0, express_validator_1.check)('password').notEmpty().isString(),
 ];
 const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // Validate user input
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -75,8 +71,8 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             password: hashedPassword,
         });
         yield newUser.save();
-        const accessToken = generateAccessToken(newUser._id);
-        res.json({ accessToken });
+        // const accessToken = generateAccessToken(newUser._id);
+        res.json({ message: 'Registration successful' });
     }
     catch (error) {
         console.error(error);
@@ -86,7 +82,6 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.registerUser = registerUser;
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // Validate user input
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -116,12 +111,10 @@ const refreshToken = (req, res) => {
         if (!refreshToken) {
             return res.status(400).json({ error: 'No refresh token provided' });
         }
-        // Verify and decode the refresh token using the refresh secret
         jsonwebtoken_1.default.verify(refreshToken, refreshSecretKey, (err, decoded) => {
             if (err) {
                 return res.status(401).json({ error: 'Invalid or expired refresh token' });
             }
-            // Generate a new access token for the user
             const accessToken = generateAccessToken(decoded.userId);
             res.json({ accessToken });
         });

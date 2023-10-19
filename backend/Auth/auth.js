@@ -31,28 +31,26 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const secretKey = process.env.ACCESS_TOKEN_SECRET;
-console.log(secretKey);
 const verifyAccessToken = (req, res, next) => {
     try {
-        // const accessToken = req.headers.authorization;
         const authHeader = req.headers.authorization;
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ error: 'Access token is missing or invalid' });
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            return res
+                .status(401)
+                .json({ error: "Access token is missing or invalid" });
         }
         const accessToken = authHeader.substring(7);
         if (!accessToken) {
-            return res.status(401).json({ error: 'Access token is missing' });
+            return res.status(401).json({ error: "Access token is missing" });
         }
-        console.log(accessToken);
         const decoded = jsonwebtoken_1.default.verify(accessToken, secretKey);
-        console.log(decoded);
-        req["userId"] = decoded.userId;
+        // req["userId"] = decoded.userId;
+        req.userId = decoded.userId;
         next();
     }
     catch (err) {
         console.log(err);
-        return res.status(401).json({ error: 'Invalid access token' });
+        return res.status(401).json({ error: "Invalid access token" });
     }
 };
 exports.verifyAccessToken = verifyAccessToken;
-//req['userId'] = decoded.userId;

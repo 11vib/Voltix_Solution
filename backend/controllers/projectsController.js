@@ -44,7 +44,9 @@ exports.getProjectById = getProjectById;
 const getProjectByTitle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const project_title = req.params.title;
-        const project = yield projectsModel_1.default.findOne({ project_title: project_title });
+        const project = yield projectsModel_1.default.findOne({
+            project_title: project_title,
+        });
         if (project) {
             res.status(200).json(project);
         }
@@ -58,52 +60,9 @@ const getProjectByTitle = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getProjectByTitle = getProjectByTitle;
-// // Create a new project
-// export const createProject = [verifyAccessToken, async (req: Request, res: Response) => {
-//   // The user is authenticated, continue with creating the project
-//   try {
-//     const projectData = req.body;
-//     const createdProject = await ProjectModel.create(projectData);
-//     res.status(201).json(createdProject);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// }];
-// // Update an existing project
-// export const updateProject = [verifyAccessToken, async (req: Request, res: Response) => {
-//   // The user is authenticated, continue with updating the project
-//   try {
-//     const projectId = req.params.id;
-//     const projectData = req.body;
-//     const updatedProject = await ProjectModel.findByIdAndUpdate(projectId, projectData, { new: true });
-//     if (updatedProject) {
-//       res.status(200).json(updatedProject);
-//     } else {
-//       res.status(404).json({ error: "Project not found" });
-//     }
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// }];
-// // Delete a project
-// export const deleteProject = [verifyAccessToken, async (req: Request, res: Response) => {
-//   // The user is authenticated, continue with deleting the project
-//   try {
-//     const projectId = req.params.id;
-//     const deletedProject = await ProjectModel.findByIdAndDelete(projectId);
-//     if (deletedProject) {
-//       res.status(204).send(); // 204 No Content (successful deletion)
-//     } else {
-//       res.status(404).json({ error: "Project not found" });
-//     }
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// }];
-exports.createProject = [auth_1.verifyAccessToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createProject = [
+    auth_1.verifyAccessToken,
+    (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const projectData = req.body;
             const createdProject = yield projectsModel_1.default.create(projectData);
@@ -111,10 +70,13 @@ exports.createProject = [auth_1.verifyAccessToken, (req, res) => __awaiter(void 
         }
         catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
+            res.status(500).json({ error: "Internal server error" });
         }
-    })];
-exports.updateProject = [auth_1.verifyAccessToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    }),
+];
+exports.updateProject = [
+    auth_1.verifyAccessToken,
+    (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const projectId = req.params.id;
             const projectData = req.body;
@@ -123,15 +85,18 @@ exports.updateProject = [auth_1.verifyAccessToken, (req, res) => __awaiter(void 
                 res.status(200).json(updatedProject);
             }
             else {
-                res.status(404).json({ error: 'Project not found' });
+                res.status(404).json({ error: "Project not found" });
             }
         }
         catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
+            res.status(500).json({ error: "Internal server error" });
         }
-    })];
-exports.deleteProject = [auth_1.verifyAccessToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    }),
+];
+exports.deleteProject = [
+    auth_1.verifyAccessToken,
+    (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const projectId = req.params.id;
             const deletedProject = yield projectsModel_1.default.findByIdAndDelete(projectId);
@@ -139,52 +104,12 @@ exports.deleteProject = [auth_1.verifyAccessToken, (req, res) => __awaiter(void 
                 res.status(204).send(); // 204 No Content (successful deletion)
             }
             else {
-                res.status(404).json({ error: 'Project not found' });
+                res.status(404).json({ error: "Project not found" });
             }
         }
         catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
+            res.status(500).json({ error: "Internal server error" });
         }
-    })];
-// // Create a new project
-// export const createProject = async (req: Request, res: Response) => {
-//     try {
-//       const projectData = req.body;
-//       const createdProject = await ProjectModel.create(projectData);
-//       res.status(201).json(createdProject);
-//     } catch (err) {
-//       res.status(500).json({ error: "Internal server error" });
-//     }
-//   };
-//   // Update an existing project
-//   export const updateProject = async (req: Request, res: Response) => {
-//     try {
-//       const projectId = req.params.id;
-//       const projectData = req.body;
-//       const updatedProject = await ProjectModel.findByIdAndUpdate(projectId, projectData, { new: true });
-//       if (updatedProject) {
-//         res.status(200).json(updatedProject);
-//       } else {
-//         res.status(404).json({ error: "Project not found" });
-//       }
-//     } catch (err) {
-//       res.status(500).json({ error: "Internal server error" });
-//     }
-//   };
-//   // Delete a project
-//   export const deleteProject = async (req: Request, res: Response) => {
-//     try {
-//       const projectId = req.params.id;
-//       const deletedProject = await ProjectModel.findByIdAndDelete(projectId);
-//       if (deletedProject) {
-//         res.status(204).send(); // 204 No Content (successful deletion)
-//       } else {
-//         res.status(404).json({ error: "Project not found" });
-//       }
-//     } catch (err) {
-//       res.status(500).json({ error: "Internal server error" });
-//     }
-//   };
-// "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJmNWNjN2FkMjI1YzBiYzdlMWMyNDgiLCJpYXQiOjE2OTc2MDI3ODIsImV4cCI6MTY5NzYwMzY4Mn0.r0ks07-Vj9Qkp0C0gx6ofn2VlN9HTKZSRUOFy5PCbNs",
-//   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTJmNWNjN2FkMjI1YzBiYzdlMWMyNDgiLCJpYXQiOjE2OTc2MDI3ODIsImV4cCI6MTY5ODIwNzU4Mn0.OvwPabyLbG_Daxg1L2RT76jqi1paY0NhAens6O9wwLM"
+    }),
+];

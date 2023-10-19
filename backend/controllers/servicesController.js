@@ -43,7 +43,9 @@ exports.getServiceById = getServiceById;
 const getServiceByTitle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const service_title = req.params.title;
-        const service = yield servicesModel_1.default.findOne({ service_title: service_title });
+        const service = yield servicesModel_1.default.findOne({
+            service_title: service_title,
+        });
         if (service) {
             res.status(200).json(service);
         }

@@ -24,22 +24,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
+const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const userSchema = new mongoose_1.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    email: { type: String, required: true, unique: true, match: emailPattern },
+    password: { type: String, required: true },
 });
-exports.default = mongoose_1.default.model('User', userSchema);
-// proper
-// import mongoose, { Schema, Document } from 'mongoose';
-// // Define the User schema
-// const UserSchema = new Schema<IUser>({
-//   username: { type: String, required: true, unique: true },
-//   password: { type: String, required: true }
-// });
-// // Define the User model
-// export interface IUser extends Document {
-//   username: string;
-//   password: string;
-// }
-// const UserModel = mongoose.model<IUser>('User', UserSchema);
-// export default UserModel;
+exports.default = mongoose_1.default.model("User", userSchema);

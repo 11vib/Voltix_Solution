@@ -43,17 +43,16 @@ const express_validator_1 = require("express-validator");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const secretKey = process.env.ACCESS_TOKEN_SECRET;
-// console.log(secretKey);
 const refreshSecretKey = process.env.REFRESH_TOKEN_SECRET;
 const generateAccessToken = (userId) => {
-    return jsonwebtoken_1.default.sign({ userId }, secretKey, { expiresIn: '50m' });
+    return jsonwebtoken_1.default.sign({ userId }, secretKey, { expiresIn: "30m" });
 };
 const generateRefreshToken = (userId) => {
-    return jsonwebtoken_1.default.sign({ userId }, refreshSecretKey, { expiresIn: '7d' });
+    return jsonwebtoken_1.default.sign({ userId }, refreshSecretKey, { expiresIn: "7d" });
 };
 exports.validateUserInput = [
-    (0, express_validator_1.check)('username').notEmpty().isString(),
-    (0, express_validator_1.check)('password').notEmpty().isString(),
+    (0, express_validator_1.check)("username").notEmpty().isString(),
+    (0, express_validator_1.check)("password").notEmpty().isString(),
 ];
 const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -61,23 +60,22 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { username, password } = req.body;
-        const existingUser = yield usersModel_1.default.findOne({ username });
+        const { email, password } = req.body;
+        const existingUser = yield usersModel_1.default.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ error: 'Username already in use' });
+            return res.status(400).json({ error: "Email already in use" });
         }
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         const newUser = new usersModel_1.default({
-            username,
+            email,
             password: hashedPassword,
         });
         yield newUser.save();
-        // const accessToken = generateAccessToken(newUser._id);
-        res.json({ message: 'Registration successful' });
+        res.json({ message: "Registration successful" });
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Registration failed' });
+        res.status(500).json({ error: "Registration failed" });
     }
 });
 exports.registerUser = registerUser;
@@ -87,14 +85,14 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { username, password } = req.body;
-        const user = yield usersModel_1.default.findOne({ username });
+        const { email, password } = req.body;
+        const user = yield usersModel_1.default.findOne({ email });
         if (!user) {
-            return res.status(401).json({ error: 'Authentication failed' });
+            return res.status(401).json({ error: "Authentication failed" });
         }
         const passwordMatch = yield bcrypt_1.default.compare(password, user.password);
         if (!passwordMatch) {
-            return res.status(401).json({ error: 'Authentication failed' });
+            return res.status(401).json({ error: "Authentication failed" });
         }
         const accessToken = generateAccessToken(user._id);
         const refreshToken = generateRefreshToken(user._id);
@@ -102,7 +100,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Authentication failed' });
+        res.status(500).json({ error: "Authentication failed" });
     }
 });
 exports.loginUser = loginUser;
@@ -110,11 +108,13 @@ const refreshToken = (req, res) => {
     try {
         const refreshToken = req.body.refreshToken;
         if (!refreshToken) {
-            return res.status(400).json({ error: 'No refresh token provided' });
+            return res.status(400).json({ error: "No refresh token provided" });
         }
         jsonwebtoken_1.default.verify(refreshToken, refreshSecretKey, (err, decoded) => {
             if (err) {
-                return res.status(401).json({ error: 'Invalid or expired refresh token' });
+                return res
+                    .status(401)
+                    .json({ error: "Invalid or expired refresh token" });
             }
             const accessToken = generateAccessToken(decoded.userId);
             res.json({ accessToken });
@@ -122,7 +122,7 @@ const refreshToken = (req, res) => {
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Refresh token failed' });
+        res.status(500).json({ error: "Refresh token failed" });
     }
 };
 exports.refreshToken = refreshToken;

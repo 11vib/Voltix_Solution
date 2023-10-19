@@ -26,18 +26,19 @@ export const getServiceById = async (req: Request, res: Response) => {
 };
 
 export const getServiceByTitle = async (req: Request, res: Response) => {
-    try {
-      const service_title = req.params.title;
-      const service = await ServiceModel.findOne({ service_title: service_title });
-  
-      if (service) {
-        res.status(200).json(service);
-      } else {
-        res.status(404).json({ error: "Service not found" });
-      }
-    } catch (err) {
-      res.status(500).json({ error: "Internal server error" });
-      console.log(err);
+  try {
+    const service_title = req.params.title;
+    const service = await ServiceModel.findOne({
+      service_title: service_title,
+    });
+
+    if (service) {
+      res.status(200).json(service);
+    } else {
+      res.status(404).json({ error: "Service not found" });
     }
-  };
-  
+  } catch (err) {
+    res.status(500).json({ error: "Internal server error" });
+    console.log(err);
+  }
+};

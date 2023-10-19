@@ -55,15 +55,15 @@ function sendEmailCopy(data) {
     const mailOptions = {
         from: process.env.FROM,
         to: process.env.TO,
-        subject: 'Contact Form Submission',
+        subject: "Contact Form Submission",
         text: JSON.stringify(data),
     };
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.error('Error sending email:', error);
+            console.error("Error sending email:", error);
         }
         else {
-            console.log('Email sent:', info.response);
+            console.log("Email sent:", info.response);
         }
     });
 }
@@ -71,9 +71,11 @@ function postContact(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { name, phone_no, email, message } = req.body;
         if (!name || !phone_no || !email || !message) {
-            return res.status(400).json({ error: 'Invalid request or missing required fields.' });
+            return res
+                .status(400)
+                .json({ error: "Invalid request or missing required fields." });
         }
-        // Store the data in the MongoDB database
+        // Storing the data in the MongoDB
         const newContact = new contactModel_1.default({
             name,
             phone_no,
@@ -82,13 +84,14 @@ function postContact(req, res) {
         });
         try {
             yield newContact.save();
-            // Send a copy of the data via email
             sendEmailCopy(req.body);
-            return res.status(201).json({ message: 'Contact entry created successfully.' });
+            return res
+                .status(201)
+                .json({ message: "Contact entry created successfully." });
         }
         catch (err) {
             console.log(err);
-            return res.status(500).json({ error: 'Internal server error.' });
+            return res.status(500).json({ error: "Internal server error." });
         }
     });
 }

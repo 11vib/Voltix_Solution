@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { verifyAccessToken } from "../Auth/auth";
 import TestimonialModel from "../models/testimonialsModel";
 
 export const getAllTestimonials = async (req: Request, res: Response) => {

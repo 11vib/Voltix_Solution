@@ -28,6 +28,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const testimonialController = __importStar(require("../controllers/testimonialsController"));
-const trouter = express_1.default.Router();
-trouter.get("/testimonials", testimonialController.getAllTestimonials);
-exports.default = trouter;
+const t_router = express_1.default.Router();
+t_router.get("/testimonials", testimonialController.getAllTestimonials);
+exports.default = t_router;

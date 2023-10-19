@@ -28,8 +28,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const serviceController = __importStar(require("../controllers/servicesController"));
-const srouter = express_1.default.Router();
-srouter.get("/services/:id", serviceController.getServiceById);
-srouter.get("/services", serviceController.getAllServices);
-srouter.get("/services/title/:title", serviceController.getServiceByTitle);
-exports.default = srouter;
+const s_router = express_1.default.Router();
+s_router.get("/services/:id", serviceController.getServiceById);
+s_router.get("/services", serviceController.getAllServices);
+s_router.get("/services/title/:title", serviceController.getServiceByTitle);
+exports.default = s_router;

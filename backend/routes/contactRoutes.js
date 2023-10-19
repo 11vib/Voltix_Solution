@@ -28,6 +28,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const contactController = __importStar(require("../controllers/contactController"));
-const crouter = express_1.default.Router();
-crouter.post("/contact-entries", contactController.postContact);
-exports.default = crouter;
+const c_router = express_1.default.Router();
+c_router.post("/contact-entries", contactController.postContact);
+exports.default = c_router;

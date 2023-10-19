@@ -1,8 +1,7 @@
 import express from "express";
 import * as testimonialController from "../controllers/testimonialsController";
-const trouter = express.Router();
+const t_router = express.Router();
 
-trouter.get("/testimonials", testimonialController.getAllTestimonials);
+t_router.get("/testimonials", testimonialController.getAllTestimonials);
 
-
-export default trouter;
+export default t_router;

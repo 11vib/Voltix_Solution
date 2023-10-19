@@ -1,10 +1,9 @@
 import express from "express";
 import * as serviceController from "../controllers/servicesController";
-const srouter = express.Router();
+const s_router = express.Router();
 
-srouter.get("/services/:id", serviceController.getServiceById);
-srouter.get("/services", serviceController.getAllServices);
-srouter.get("/services/title/:title",serviceController.getServiceByTitle);
+s_router.get("/services/:id", serviceController.getServiceById);
+s_router.get("/services", serviceController.getAllServices);
+s_router.get("/services/title/:title", serviceController.getServiceByTitle);
 
-
-export default srouter;
+export default s_router;

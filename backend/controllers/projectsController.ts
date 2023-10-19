@@ -89,7 +89,7 @@ export const deleteProject = [
       const deletedProject = await ProjectModel.findByIdAndDelete(projectId);
 
       if (deletedProject) {
-        res.status(204).send(); // 204 No Content (successful deletion)
+        res.status(200).send('Deleted successfully');
       } else {
         res.status(404).json({ error: "Project not found" });
       }

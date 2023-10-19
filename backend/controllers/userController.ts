@@ -7,12 +7,12 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-// const secretKey = process.env.ACCESS_TOKEN_SECRET ;
+const secretKey = process.env.ACCESS_TOKEN_SECRET ;
 // console.log(secretKey);
 
 const refreshSecretKey = process.env.REFRESH_TOKEN_SECRET ;
 const generateAccessToken = (userId: string): string => {
-  return jwt.sign({ userId }, "abc", { expiresIn: '50m' }); 
+  return jwt.sign({ userId }, secretKey as string, { expiresIn: '50m' }); 
 };
 const generateRefreshToken = (userId: string): string => {
   return jwt.sign({ userId }, refreshSecretKey as string, { expiresIn: '7d' });

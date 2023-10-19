@@ -2,7 +2,7 @@ import mongoose, { Document, Model} from "mongoose";
 
 // Define the interface for the Project document
 interface IProject extends Document {
-  project_id: string;
+  //project_id: string;
   project_title: string;
   project_description: string;
   project_category: string;
@@ -12,11 +12,11 @@ interface IProject extends Document {
 
 // Create the Mongoose schema for the Project model
 const projectsSchema = new mongoose.Schema<IProject>({
-  project_id: { type: String, required: true, unique: true, trim: true },
+ // project_id: { type: String, required: true, unique: true, trim: true },
   project_title: { type: String, required: true, unique: true, trim: true },
   project_description: { type: String, required: true },
   project_category: { type: String, required: true },
-  image_url: { type: String, required: true },
+  image_url: { type: String, required:true},
   created_at: { type: Date, default: Date.now },
 });
 

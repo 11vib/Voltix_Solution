@@ -33,7 +33,7 @@ const prouter = express_1.default.Router();
 prouter.get("/projects/:id", projectController.getProjectById);
 prouter.get("/projects", projectController.getAllProjects);
 prouter.get("/projects/title/:title", projectController.getProjectByTitle);
-prouter.post("/projects/create", projectController.createProject);
+prouter.post("/projects/create", auth_1.verifyAccessToken, projectController.createProject);
 prouter.put("/projects/update/:id", auth_1.verifyAccessToken, projectController.updateProject);
 prouter.delete("/projects/delete/:id", auth_1.verifyAccessToken, projectController.deleteProject);
 exports.default = prouter;

@@ -42,22 +42,68 @@ export const getProjectByTitle = async (req: Request, res: Response) => {
     }
   };
   
-  // Create a new project
+  // // Create a new project
+  // export const createProject = [verifyAccessToken, async (req: Request, res: Response) => {
+  //   // The user is authenticated, continue with creating the project
+  //   try {
+  //     const projectData = req.body;
+  //     const createdProject = await ProjectModel.create(projectData);
+  //     res.status(201).json(createdProject);
+  //   } catch (err) {
+  //     console.error(err);
+  //     res.status(500).json({ error: "Internal server error" });
+  //   }
+  // }];
+  
+  // // Update an existing project
+  // export const updateProject = [verifyAccessToken, async (req: Request, res: Response) => {
+  //   // The user is authenticated, continue with updating the project
+  //   try {
+  //     const projectId = req.params.id;
+  //     const projectData = req.body;
+  //     const updatedProject = await ProjectModel.findByIdAndUpdate(projectId, projectData, { new: true });
+  
+  //     if (updatedProject) {
+  //       res.status(200).json(updatedProject);
+  //     } else {
+  //       res.status(404).json({ error: "Project not found" });
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     res.status(500).json({ error: "Internal server error" });
+  //   }
+  // }];
+  
+  // // Delete a project
+  // export const deleteProject = [verifyAccessToken, async (req: Request, res: Response) => {
+  //   // The user is authenticated, continue with deleting the project
+  //   try {
+  //     const projectId = req.params.id;
+  //     const deletedProject = await ProjectModel.findByIdAndDelete(projectId);
+  
+  //     if (deletedProject) {
+  //       res.status(204).send(); // 204 No Content (successful deletion)
+  //     } else {
+  //       res.status(404).json({ error: "Project not found" });
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     res.status(500).json({ error: "Internal server error" });
+  //   }
+  // }];
+  
+
   export const createProject = [verifyAccessToken, async (req: Request, res: Response) => {
-    // The user is authenticated, continue with creating the project
     try {
       const projectData = req.body;
       const createdProject = await ProjectModel.create(projectData);
       res.status(201).json(createdProject);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: 'Internal server error' });
     }
   }];
-  
-  // Update an existing project
   export const updateProject = [verifyAccessToken, async (req: Request, res: Response) => {
-    // The user is authenticated, continue with updating the project
     try {
       const projectId = req.params.id;
       const projectData = req.body;
@@ -66,17 +112,15 @@ export const getProjectByTitle = async (req: Request, res: Response) => {
       if (updatedProject) {
         res.status(200).json(updatedProject);
       } else {
-        res.status(404).json({ error: "Project not found" });
+        res.status(404).json({ error: 'Project not found' });
       }
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: 'Internal server error' });
     }
   }];
-  
-  // Delete a project
-  export const deleteProject = [verifyAccessToken, async (req: Request, res: Response) => {
-    // The user is authenticated, continue with deleting the project
+
+  export const deleteProject = [verifyAccessToken,  async (req: Request, res: Response) => {
     try {
       const projectId = req.params.id;
       const deletedProject = await ProjectModel.findByIdAndDelete(projectId);
@@ -84,14 +128,13 @@ export const getProjectByTitle = async (req: Request, res: Response) => {
       if (deletedProject) {
         res.status(204).send(); // 204 No Content (successful deletion)
       } else {
-        res.status(404).json({ error: "Project not found" });
+        res.status(404).json({ error: 'Project not found' });
       }
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: 'Internal server error' });
     }
   }];
-  
 
 // // Create a new project
 // export const createProject = async (req: Request, res: Response) => {

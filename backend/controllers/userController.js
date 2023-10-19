@@ -42,10 +42,11 @@ const usersModel_1 = __importDefault(require("../models/usersModel"));
 const express_validator_1 = require("express-validator");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const secretKey = process.env.ACCESS_TOKEN_SECRET;
+// const secretKey = process.env.ACCESS_TOKEN_SECRET ;
+// console.log(secretKey);
 const refreshSecretKey = process.env.REFRESH_TOKEN_SECRET;
 const generateAccessToken = (userId) => {
-    return jsonwebtoken_1.default.sign({ userId }, secretKey, { expiresIn: '50m' });
+    return jsonwebtoken_1.default.sign({ userId }, "abc", { expiresIn: '50m' });
 };
 const generateRefreshToken = (userId) => {
     return jsonwebtoken_1.default.sign({ userId }, refreshSecretKey, { expiresIn: '7d' });

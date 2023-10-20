@@ -27,9 +27,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const auth_1 = require("../Auth/auth");
 const serviceController = __importStar(require("../controllers/servicesController"));
 const s_router = express_1.default.Router();
 s_router.get("/services/:id", serviceController.getServiceById);
 s_router.get("/services", serviceController.getAllServices);
 s_router.get("/services/title/:title", serviceController.getServiceByTitle);
+s_router.post("/services/create", auth_1.verifyAccessToken, serviceController.createService);
+s_router.put("/services/update/:id", auth_1.verifyAccessToken, serviceController.updateService);
+s_router.delete("/services/delete/:id", auth_1.verifyAccessToken, serviceController.deleteService);
 exports.default = s_router;

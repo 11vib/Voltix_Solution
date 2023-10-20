@@ -5,10 +5,11 @@ import projectRoutes from "./routes/projectsRoutes";
 import serviceRoutes from "./routes/servicesRoutes";
 import testimonialRoutes from "./routes/testimonialRoutes";
 import contactRoutes from "./routes/contactRoutes";
+import userRoutes from "./routes/usersRoute";
 import {
   registerUser,
   loginUser,
-  refreshToken,
+  refreshToken
 } from "./controllers/userController";
 
 dotenv.config();
@@ -32,9 +33,9 @@ app.use("/papi", projectRoutes);
 app.use("/sapi", serviceRoutes);
 app.use("/tapi", testimonialRoutes);
 app.use("/capi", contactRoutes);
-app.post("/api/register", registerUser);
-app.post("/api/login", loginUser);
-app.post("/api/refresh", refreshToken);
+app.use("/api", userRoutes);
+app.use("/api",userRoutes);
+app.use("/api", userRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -51,7 +51,7 @@ const generateRefreshToken = (userId) => {
     return jsonwebtoken_1.default.sign({ userId }, refreshSecretKey, { expiresIn: "7d" });
 };
 exports.validateUserInput = [
-    (0, express_validator_1.check)("username").notEmpty().isString(),
+    (0, express_validator_1.check)("email").notEmpty().isString(),
     (0, express_validator_1.check)("password").notEmpty().isString(),
 ];
 const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

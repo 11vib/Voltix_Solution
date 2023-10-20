@@ -8,8 +8,8 @@ import {
 
 const router = express.Router();
 
-router.post("/register", validateUserInput, registerUser);
-router.post("/login", validateUserInput, loginUser);
-router.post("/refresh", validateUserInput, refreshToken);
+router.post("/register",validateUserInput, registerUser);
+router.post("/login", validateUserInput,loginUser);
+router.post("/refresh", validateUserInput,refreshToken);
 
 export default router;

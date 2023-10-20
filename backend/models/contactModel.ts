@@ -1,4 +1,5 @@
 import mongoose, { Document, Model } from "mongoose";
+const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
 interface IContact extends Document {
   name: string;
@@ -11,7 +12,7 @@ interface IContact extends Document {
 const contactSchema = new mongoose.Schema<IContact>({
   name: { type: String, required: true },
   phone_no: { type: Number, required: true },
-  email: { type: String, required: true },
+  email: { type: String, required: true, match:emailPattern},
   message: { type: String, required: true },
   created_at: { type: Date, default: Date.now },
 });

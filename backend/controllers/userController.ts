@@ -18,7 +18,7 @@ const generateRefreshToken = (userId: string): string => {
 };
 
 export const validateUserInput = [
-  check("username").notEmpty().isString(),
+  check("email").notEmpty().isString(),
   check("password").notEmpty().isString(),
 ];
 

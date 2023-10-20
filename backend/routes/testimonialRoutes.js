@@ -27,7 +27,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const auth_1 = require("../Auth/auth");
 const testimonialController = __importStar(require("../controllers/testimonialsController"));
 const t_router = express_1.default.Router();
 t_router.get("/testimonials", testimonialController.getAllTestimonials);
+t_router.get("/testimonials/:id", auth_1.verifyAccessToken, testimonialController.getTestimonialById);
+t_router.post("/testimonials/create", auth_1.verifyAccessToken, testimonialController.createTestimonial);
+t_router.put("/testimonials/update/:id", auth_1.verifyAccessToken, testimonialController.updateTestimonial);
+t_router.delete("/testimonials/delete/:id", auth_1.verifyAccessToken, testimonialController.deleteTestimonial);
 exports.default = t_router;

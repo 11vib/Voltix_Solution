@@ -71,7 +71,7 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             password: hashedPassword,
         });
         yield newUser.save();
-        res.json({ message: "Registration successful" });
+        res.json({ email: newUser.email, message: "Registration successful" });
     }
     catch (error) {
         console.error(error);

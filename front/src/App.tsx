@@ -1,15 +1,21 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TestimonialsPage from './pages/TestimonialsPage';
+import ProjectsPage from './pages/ProjectsPage';
 
 function App() {
   return (
-    <div>
-      <TestimonialsPage />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/testimonials" element={<TestimonialsPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
 
 
     // <div className="App">

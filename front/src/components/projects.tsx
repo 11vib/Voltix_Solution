@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { fetchProjects } from "../services/api";
 
 interface IProject {
   _id: string;
@@ -14,9 +15,9 @@ interface IProject {
 
 const Projects: React.FC = () => {
   const [projects, setProjects] = useState<IProject[]>([]);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/papi/projects")
+    fetchProjects()
       .then((response) => {
         setProjects(response.data);
       })
@@ -37,9 +38,9 @@ const Projects: React.FC = () => {
               <div className="card-body">
                 <h5 className="card-title">{entry.project_title}</h5>
                 <p className="card-text">{entry.project_description}</p>
-                <a href="/" className="btn btn-primary">
+                <Link to={`/projects/id?id=${entry._id}`} className="btn btn-primary">
                   More
-                </a>
+                </Link>
               </div>
             </div>
           </div>

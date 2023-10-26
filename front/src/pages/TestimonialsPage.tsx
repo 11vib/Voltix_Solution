@@ -4,7 +4,7 @@ import Testimonials from "../components/testimonials";
 const TestimonialsPage: React.FC = () => {
   return (
     <div>
-      <h1>Testimonials Page</h1>
+      <h1>Testimonials</h1>
       <Testimonials />
     </div>
   );

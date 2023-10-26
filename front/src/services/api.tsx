@@ -14,3 +14,6 @@ export const fetchServices = () => {
 export const fetchServiceById = (serviceId : string) => {
     return axios.get(`${BASE_URL}/sapi/services/id?id=${serviceId}`);
 };
+export const fetchTestimonials = () =>{
+    return axios.get(`${BASE_URL}/tapi/testimonials`);
+};

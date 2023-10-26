@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { fetchTestimonials } from "../services/api";
 
 interface ITestimonial {
     _id:string;
@@ -13,8 +13,7 @@ interface ITestimonial {
 const Testimonials: React.FC = () => {
   const [testimonials, setTestimonials] = useState<ITestimonial[]>([]);
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/tapi/testimonials")
+      fetchTestimonials()
       .then((response) => {
         setTestimonials(response.data);
       })
